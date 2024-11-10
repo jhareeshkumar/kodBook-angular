@@ -1,0 +1,43 @@
+.nav-bar {
+    @apply flex justify-center p-4 bg-indigo-600;
+
+    .nav-title {
+        @apply text-white text-2xl font-bold;
+    }
+}
+
+.form-heading {
+    @apply text-center text-indigo-600 mb-4;
+}
+
+.signup-form {
+    @apply bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto;
+
+    .label {
+        @apply block mt-4 font-semibold;
+    }
+
+    .input-field {
+        @apply w-full p-2 mt-1 border border-gray-300 rounded;
+    }
+
+    .gender-options {
+        @apply flex gap-2 mt-1;
+
+        .radio-input {
+            @apply mr-1;
+        }
+    }
+
+    .submit-btn {
+        @apply w-full bg-indigo-600 text-white p-3 rounded mt-6 font-bold cursor-pointer transition duration-300;
+
+        &:hover {
+            @apply bg-indigo-700;
+        }
+    }
+
+    .login-link {
+        @apply block text-center mt-4 text-indigo-600 underline text-sm;
+    }
+}

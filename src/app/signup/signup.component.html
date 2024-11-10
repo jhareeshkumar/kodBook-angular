@@ -1,0 +1,38 @@
+<nav class="nav-bar">
+    <h1 class="nav-title">KodBook</h1>
+</nav>
+
+<h1 class="form-heading">Create your new account</h1>
+
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate class="signup-form">
+    <label for="userName" class="label">USERNAME:</label>
+    <input type="text" formControlName="userName" id="userName" name="userName" class="input-field">
+    <p>Form Status: {{ signupForm.status }}</p>
+
+    <label for="email" class="label">EMAIL:</label>
+    <input type="email" formControlName="email" id="email" name="email" required class="input-field">
+
+    <label for="dob" class="label">DOB:</label>
+    <input type="date" formControlName="dob" id="dob" name="dob" required class="input-field">
+
+    <label for="male" class="label">GENDER:</label>
+    <div class="gender-options">
+        <input type="radio" formControlName="gender" name="gender" value="M" id="male" class="radio-input">
+        <label for="male">Male</label>
+        <input type="radio" formControlName="gender" name="gender" value="F" id="female" class="radio-input">
+        <label for="female">Female</label>
+        <input type="radio" formControlName="gender" name="gender" value="O" id="other" class="radio-input">
+        <label for="other">Others</label>
+    </div>
+
+    <label for="password" class="label">PASSWORD:</label>
+    <input type="password" formControlName="password" id="password" name="password" required class="input-field">
+
+    <input type="submit" value="SIGNUP" class="submit-btn">
+
+
+
+    <a href="/" class="login-link">Already Have an account? Login!</a>
+</form>
+
+<button (click)="getSignupData()" class="text-teal-500 border-t-emerald-800 bg-slate-600">Button</button>
