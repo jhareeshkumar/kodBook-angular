@@ -4,7 +4,11 @@
 
 <h1 class="form-heading">Create your new account</h1>
 
-<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate class="signup-form">
+<form [formGroup]="signupForm" (ngSubmit)="onSignup()" novalidate class="signup-form">
+
+    <p *ngIf="successMessage" class="success-message">{{successMessage}}</p>
+    <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+
     <label for="userName" class="label">USERNAME:</label>
     <input type="text" formControlName="userName" id="userName" name="userName" class="input-field">
     <p>Form Status: {{ signupForm.status }}</p>
@@ -32,7 +36,8 @@
 
 
 
-    <a href="/" class="login-link">Already Have an account? Login!</a>
+    <a href="#" class="login-link">Already Have an account? Login!</a>
 </form>
+<h1>{{signup.userName}}</h1>
 
-<button (click)="getSignupData()" class="text-teal-500 border-t-emerald-800 bg-slate-600">Button</button>
+<button (click)="getFormData()">getformData</button>
