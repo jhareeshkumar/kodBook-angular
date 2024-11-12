@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SignupService } from '../signup.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -13,12 +14,12 @@ import { CommonModule } from '@angular/common';
 export class SignupComponent {
 
   private signupService = inject(SignupService);
+  private toastr = inject(ToastrService);
 
-  // Add properties to store messages
-  successMessage: string | null = null;
-  errorMessage: string | null = null;
+  //variables
+  isSignupFormSubmitted = false;
 
-  signup: any = {
+  signup: Object = {
     userName: "john",
     email: "",
     bio: "",
@@ -33,46 +34,49 @@ export class SignupComponent {
 
   private formBuilder = inject(FormBuilder);
   signupForm = this.formBuilder.group({
-    userName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
-    dob: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    userName: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    dob: ['', Validators.required],
+    gender: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(5)]],
   })
 
   onSignup(): void {
+    //store form data to use it again
+    this.signup = this.signupForm.value;
+
+    this.isSignupFormSubmitted = true;
+
     if (this.signupForm.valid) {
       this.signupService.signup(this.signupForm.value)
         .subscribe({
           next: (response: any) => {
-            // Success callback
-            this.successMessage = "SignUp Successfull";
-            this.errorMessage = null;
+            this.toastr.success('Please Login', 'Signup Successfull!');
             console.log('Success:', response); // Display success message in the console
-            // Clear success message after 3 seconds
-            setTimeout(() => {
-              this.successMessage = null;
-            }, 3000);
+            //save form data to object
+            this.signup = response;
+
+            this.isSignupFormSubmitted = false;
+
+            this.signupForm.reset();
           },
           error: (error: any) => {
             // Error callback
-            this.errorMessage = error.message;
             console.error('Error:', error.message); // Display error details in the console
 
             // Display the backend error message, if available
             if (error.error && error.error.message) {
-              this.errorMessage = error.error.message;
-              this.successMessage = null;
+              this.toastr.error('Plase Login with your credentials.', error.error.message);
+
               console.error('Backend error message:', error.error.message);
-              // Clear error message after 3 seconds
-              setTimeout(() => {
-                this.errorMessage = null;
-              }, 3000);
             } else {
-              this.errorMessage = 'An unknown error occurred';
-              this.successMessage = null;
+              this.toastr.error('Please Try Later!', 'An unknown error occurred');
+
               console.error('An unknown error occurred');
             }
+          },
+          complete: () => {
+            console.log("signup Request Completed");
           }
         });
     }
@@ -80,8 +84,9 @@ export class SignupComponent {
 
 
 
-  getFormData() {
-    this.signup = this.signupForm.value;
-    console.log(this.signup);
+  // Method to check if a specific field has an error
+  hasError(fieldName: string, errorType: string): boolean {
+    const field = this.signupForm.get(fieldName);
+    return !!(field?.hasError(errorType) && (field?.touched || this.isSignupFormSubmitted));
   }
 }
