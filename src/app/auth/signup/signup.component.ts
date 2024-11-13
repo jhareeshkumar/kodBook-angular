@@ -46,44 +46,31 @@ export class SignupComponent {
     //store form data to use it again
     this.signup = this.signupForm.value;
 
-    this.isSignupFormSubmitted = true;
-
     if (this.signupForm.valid) {
-      this.signupService.signup(this.signupForm.value)
-        .subscribe({
-          next: (response: any) => {
-            this.toastr.success('Please Login', 'Signup Successfull!');
-            console.log('Success:', response); // Display success message in the console
-            //save form data to object
-            this.signup = response;
+      this.signupService.signup(this.signupForm.value).subscribe({
+        next: (res: any) => {
+          this.toastr.success(res.message, "Success");
+          console.log("success Response", res);
+          this.signupForm.reset();
+        },
+        error: (error: any) => {
+          if (error.status == 0) {
+            this.toastr.error("Please Try Aftersome Time?.", 'SERVER DOWN!');
+            console.log("server Unavailable", error);
+          } else {
+            this.toastr.error("Please try to Login!.", error.error.message);
+            console.log("Error : ", error);
 
-            this.isSignupFormSubmitted = false;
-
-            this.signupForm.reset();
-          },
-          error: (error: any) => {
-            // Error callback
-            console.error('Error:', error.message); // Display error details in the console
-
-            // Display the backend error message, if available
-            if (error.error && error.error.message) {
-              this.toastr.error('Backend Error', error.error.message);
-
-              console.error('Backend error message:', error.error.message);
-            } else {
-              this.toastr.error('Please Try Later!', 'An unknown error occurred');
-
-              console.error('An unknown error occurred');
-            }
-          },
-          complete: () => {
-            console.log("signup Request Completed");
           }
-        });
+        },
+        complete() {
+          console.log('SignUp Request has been processed.');
+        }
+      });
+    } else {
+      this.signupForm.markAllAsTouched();
     }
   }
-
-
 
   // Method to check if a specific field has an error
   hasError(fieldName: string, errorType: string): boolean {
