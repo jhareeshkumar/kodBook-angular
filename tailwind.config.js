@@ -3,6 +3,7 @@ export const content = [
   "./src/**/*.{html,ts}",
 ];
 export const theme = {
-  extend: {},
+  extend: {
+  },
 };
 export const plugins = [];

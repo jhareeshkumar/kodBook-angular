@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SignupService } from '../signup.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SignupService } from '../../signup.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -66,7 +67,7 @@ export class SignupComponent {
 
             // Display the backend error message, if available
             if (error.error && error.error.message) {
-              this.toastr.error('Plase Login with your credentials.', error.error.message);
+              this.toastr.error('Backend Error', error.error.message);
 
               console.error('Backend error message:', error.error.message);
             } else {

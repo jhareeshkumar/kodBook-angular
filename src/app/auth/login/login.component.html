@@ -1,0 +1,29 @@
+<div class="form-container">
+    <h1 class="form-title">Login</h1>
+    <form [formGroup]="loginFormGroup" (submit)="onLogin()" method="post" class="form">
+
+        <label for="userName" class="form-label">Username</label>
+        <input type="text" formControlName="userName" name="userName" id="userName" class="form-input"
+            autocomplete="username">
+        <div *ngIf="hasError('userName','required')" class="form-error">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-4H9V6h2v4z" />
+            </svg>
+            Please enter a username!
+        </div>
+
+        <label for="password" class="form-label">Password</label>
+        <input type="password" formControlName="password" name="password" id="password" class="form-input"
+            autocomplete="current-password">
+        <div *ngIf="hasError('password','required')" class="form-error">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 12H9v-2h2v2zm0-4H9V6h2v4z" />
+            </svg>
+            Please enter a password!
+        </div>
+
+        <input type="submit" value="Login" class="form-submit">
+
+        <a routerLink="/signup" class="form-link">New user? SignUp!</a>
+    </form>
+</div>
