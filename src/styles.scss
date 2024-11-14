@@ -5,7 +5,7 @@
 
 
 body {
-    @apply sm:text-sm md:text-base lg:text-lg xl:text-xl;
+    @apply sm:text-sm md:text-base;
 }
 
 //* Angular Control status CSS classes - Apply only when touched */

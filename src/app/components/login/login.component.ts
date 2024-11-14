@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginService } from '../../login.service';
+import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { RouterLink } from '@angular/router';
 

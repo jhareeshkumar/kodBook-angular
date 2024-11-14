@@ -1,14 +1,16 @@
 import { Routes } from '@angular/router';
-import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { ErrorComponent } from './error/error.component';
-import { AppComponent } from './app.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { HomeComponent } from './components/home/home.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { LoginComponent } from './components/login/login.component';
+
 
 export const routes: Routes = [
-    { path: '', component: AppComponent },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'signup', component: SignupComponent },
+    { path: 'signup', component:SignupComponent },
     { path: 'login', component: LoginComponent },
-    { path: '**', component: ErrorComponent },
+    { path: '**', component: PagenotfoundComponent },
 ];

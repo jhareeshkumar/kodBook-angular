@@ -1,0 +1,50 @@
+.header-container {
+    @apply bg-blue-600 text-white p-4 w-full fixed top-0 left-0 shadow-lg z-10;
+}
+
+.header-content {
+    @apply flex items-center justify-between max-w-6xl mx-auto;
+}
+
+.header-title {
+    @apply text-xl font-bold text-center flex-grow lg:flex-grow-0;
+}
+
+.header-links {
+    @apply flex gap-4 items-center;
+}
+
+.header-link {
+    @apply text-white font-semibold hover:text-gray-200 transition-colors duration-200;
+}
+
+/* Mobile menu button */
+.menu-button {
+    @apply text-2xl text-white lg:hidden cursor-pointer;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .header-links {
+        @apply flex-col absolute bg-blue-700 text-center w-full left-0 top-full;
+    }
+
+    .header-content {
+        @apply relative;
+    }
+
+    /* Show menu links when toggle is active */
+    .header-links.hidden {
+        @apply block;
+    }
+}
+
+@media (min-width: 1024px) {
+    .header-content {
+        @apply flex-row items-center justify-between;
+    }
+
+    .header-links {
+        @apply flex-row gap-4 items-center;
+    }
+}
