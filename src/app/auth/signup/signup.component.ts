@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SignupService } from '../../signup.service';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,23 @@ export class SignupComponent {
 
   private signupService = inject(SignupService);
   private toastr = inject(ToastrService);
+
+
+
+  //signals
+  passwordVisibleSignal = signal(false);
+
+
+  public get passwordInputType(): string {
+    return this.passwordVisibleSignal() ? 'text' : 'password';
+  }
+
+  //signal methods
+  togglePasswordVisibility() {
+    this.passwordVisibleSignal.update((flipPasswordVisible) => !flipPasswordVisible);
+  }
+
+
 
   //variables
   isSignupFormSubmitted = false;

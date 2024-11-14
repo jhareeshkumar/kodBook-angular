@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService } from '../../login.service';
 import { ToastrService } from 'ngx-toastr';
@@ -19,6 +19,18 @@ export class LoginComponent {
   private loginService = inject(LoginService);
   private toastr = inject(ToastrService);
 
+  //signals
+  passwordVisibleSignal = signal(false);
+
+
+  public get passwordInputType(): string {
+    return this.passwordVisibleSignal() ? 'text' : 'password';
+  }
+
+  //signal methods
+  togglePasswordVisibility() {
+    this.passwordVisibleSignal.update((flipPasswordVisible) => !flipPasswordVisible);
+  }
 
   //form related
   private formBuiler = inject(FormBuilder);
