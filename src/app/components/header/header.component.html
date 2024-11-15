@@ -1,15 +1,17 @@
-<header class="header-container">
-    <div class="header-content">
-        <h1 class="header-title">Welcome to KodBook!</h1>
-        <!-- Menu button for smaller screens -->
-        <button class="menu-button lg:hidden" (click)="isMenuOpen()" aria-label="Toggle Menu">
-            ☰
-        </button>
-
-        <!-- Navigation links for larger screens and toggled menu for smaller screens -->
-        <nav class="header-links lg:flex" [class.hidden]="!isMenuOpen">
-            <a routerLink="/login" class="header-link">Login</a>
-            <a routerLink="/signup" class="header-link">SignUp</a>
-        </nav>
+<div class="navbar">
+  <header class="navbar-header">
+    <!-- Kodbook Title (left) -->
+    <div class="navbar-title">
+      <a routerLink="/home" class="navbar-title-link">
+        <h1>Kodbook</h1>
+      </a>
     </div>
-</header>
+
+    <!-- Login & Signup (right) -->
+    <div class="navbar-actions">
+      <a routerLink="/signup" routerLinkActive="active-page" ariaCurrentWhenActive="page" class="navbar-link">Sign
+        Up</a>
+      <a routerLink="/login" routerLinkActive="active-page" ariaCurrentWhenActive="page" class="navbar-link">Login</a>
+    </div>
+  </header>
+</div>

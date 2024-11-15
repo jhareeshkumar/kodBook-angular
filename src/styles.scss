@@ -48,7 +48,7 @@ select {
 
 /* Container styling */
 .form-container {
-    @apply max-w-md mx-auto p-8 border border-gray-300 rounded-lg bg-white shadow-lg;
+    @apply max-w-md mx-auto p-8 border border-gray-300 rounded-lg bg-white shadow-lg mt-3;
 }
 
 /* Title styling */
@@ -137,11 +137,11 @@ select {
 /* Password toggle button styling */
 /* styles.scss */
 .password-toggle-btn {
-    @apply absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700 mt-4;
+    @apply absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer hover:text-blue-600 transition-colors duration-300 cursor-pointer mt-4;
 }
 
 .eye-icon {
-    @apply w-7 h-7;
+    @apply w-7 h-7 m-1;
 }
 
 

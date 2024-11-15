@@ -1,50 +1,40 @@
-.header-container {
-    @apply bg-blue-600 text-white p-4 w-full fixed top-0 left-0 shadow-lg z-10;
+.navbar{
+    @apply bg-gray-800 text-white;
+}
+.navbar-header{
+    @apply flex justify-between items-center w-full px-4 py-3;
+}
+.navbar-title-link{
+    @apply text-white text-2xl font-semibold cursor-pointer;
+}
+.navbar-title-link:hover{
+    @apply text-blue-400;
+}
+.navbar-actions{
+    @apply flex items-center space-x-6;
+}
+.navbar-link{
+    @apply text-white text-lg font-medium hover:text-blue-400;
+}
+.active-page{
+    @apply font-bold text-blue-500 underline;
 }
 
-.header-content {
-    @apply flex items-center justify-between max-w-6xl mx-auto;
-}
-
-.header-title {
-    @apply text-xl font-bold text-center flex-grow lg:flex-grow-0;
-}
-
-.header-links {
-    @apply flex gap-4 items-center;
-}
-
-.header-link {
-    @apply text-white font-semibold hover:text-gray-200 transition-colors duration-200;
-}
-
-/* Mobile menu button */
-.menu-button {
-    @apply text-2xl text-white lg:hidden cursor-pointer;
-}
-
-/* Responsive styles */
-@media (max-width: 1024px) {
-    .header-links {
-        @apply flex-col absolute bg-blue-700 text-center w-full left-0 top-full;
+/* Responsive adjustments */
+@screen sm {
+    .navbar-header {
+      @apply px-2 py-2; /* For small screens, reduce padding */
     }
-
-    .header-content {
-        @apply relative;
+  }
+  
+  @screen md {
+    .navbar-header {
+      @apply px-6 py-3; /* For medium screens, increase padding */
     }
-
-    /* Show menu links when toggle is active */
-    .header-links.hidden {
-        @apply block;
+  }
+  
+  @screen lg {
+    .navbar-header {
+      @apply px-8 py-4; /* For large screens, even more padding */
     }
-}
-
-@media (min-width: 1024px) {
-    .header-content {
-        @apply flex-row items-center justify-between;
-    }
-
-    .header-links {
-        @apply flex-row gap-4 items-center;
-    }
-}
+  }
