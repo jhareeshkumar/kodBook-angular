@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SignupService } from '../../services/signup.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class SignupComponent {
 
-  private signupService = inject(SignupService);
+  private authService = inject(AuthService);
   private toastr = inject(ToastrService);
 
 
@@ -64,7 +64,7 @@ export class SignupComponent {
     this.signup = this.signupForm.value;
 
     if (this.signupForm.valid) {
-      this.signupService.signup(this.signupForm.value).subscribe({
+      this.authService.signup(this.signupForm.value).subscribe({
         next: (res: any) => {
           this.toastr.success(res.message, "Success");
           console.log("success Response", res);

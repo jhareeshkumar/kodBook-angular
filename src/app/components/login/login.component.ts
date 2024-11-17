@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, inject, PLATFORM_ID, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -16,16 +16,20 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
 
   //dependency injecting service
-  private loginService = inject(LoginService);
+  private authService = inject(AuthService);
   private toastr = inject(ToastrService);
+
+  //injecting router 
+  private router = inject(Router);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+
 
   //signals
   passwordVisibleSignal = signal(false);
 
+  //signal for storing the loggedinUserInfo
+  authSignal = signal({ userName: '' });
 
-  public get passwordInputType(): string {
-    return this.passwordVisibleSignal() ? 'text' : 'password';
-  }
 
   //signal methods
   togglePasswordVisibility() {
@@ -49,10 +53,23 @@ export class LoginComponent {
     if (this.loginFormGroup.valid) {
       const loginData = this.loginFormGroup.value
       //handling post request
-      this.loginService.login(loginData).subscribe({
+      this.authService.login(loginData).subscribe({
         next: (res: any) => {
           this.toastr.success(res.message, "Success");
           console.log("success Response", res);
+
+          //redirection after successfull login
+          this.router.navigate(['/feed']);
+
+          //checking is it brower or not becuase issue in ssr
+          if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('userName', res.data.userName);
+          }
+
+          //saving logged in user signal
+          this.authSignal.set(res.data.userName);
+          console.log('authsignal', this.authSignal());
+
         },
         error: (error: any) => {
           if (error.status == 0) {
@@ -72,5 +89,9 @@ export class LoginComponent {
     else {
       this.loginFormGroup.markAllAsTouched();
     }
+  }
+
+  onLogout(): void {
+    this.authService.logout();
   }
 }
